@@ -1,5 +1,6 @@
 #include <stdio.h>
-
+#define false 0
+#define true 1
 #define MAXWORDCOUNT 15
 
 main()
@@ -8,20 +9,19 @@ main()
     for (i = 0; i < MAXWORDCOUNT; ++i)
         wcount[i] = 0;
 
-    nc = wfound = 0;
+    nc = 0, wfound = false;
     while ((c=getchar())!= EOF)
     {
         if (c >= 'A' && c <= 'z')
         {
-            if (wfound != 1)
-                wfound = 1;
+            if (wfound != true)
+                wfound = true;
             ++nc;
         }
-        else if (wfound == 1)
+        else if (wfound == false)
         {
             ++wcount[nc];
-            wfound = 0;
-            nc = 0;
+            wfound = false, nc = 0;
         }
     }
 
