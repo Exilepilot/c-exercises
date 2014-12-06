@@ -13,7 +13,7 @@ int main()
     for (i = 0; i < LIMIT; ++i)
         characters[i] = 0;
 
-    while ((c = getchar()) != EOF)
+    while ((c = getchar()) != EOF && c != '\n')
     {
         if (c >= 'A' && c <= 'z')
         {
@@ -21,7 +21,7 @@ int main()
         }
     }
 
-    for (i = 0; i < LIMIT; ++i)
+    for (i = 0; i <= LIMIT; ++i)
     {
         if (characters[i] > 0)
         {
