@@ -1,7 +1,12 @@
+/*
+ * Filter a c-string.
+ * FIXME: Weird ASCII output?
+ */
 #include <stdio.h>  // getchar, printf
 #include <string.h> // strlen, strcpy
 
 #define MAX_SIZE 30
+
 /*
  * Get C-string input
  */
@@ -43,17 +48,14 @@ void printstr(char s[])
  * Removes any element of p from s,
  * returns 1 if successful, otherwise 0.
  */
-int squeeze(char s[], char p[])
+void squeeze(char s[], char p[])
 {
     int slen, plen, i, k;
-    
-    /* Get length of both */
     slen = strlen(s);
     plen = strlen(p);
-    
+
     /* Check if either are empty */
-    if ((slen > 0 && plen > 0) &&
-       !(s == p))
+    if (s != p)
     {
         /* Setup local string for later */
         char str[slen];
@@ -61,9 +63,9 @@ int squeeze(char s[], char p[])
         /* Has a match been found? */
         int found = 0;
         int j;
-        for (i = j = 0; i < slen; i++)
+        for (i = j = 0; i <= slen; i++)
         {
-            for (k = 0; k < plen; k++)
+            for (k = 0; k <= plen; k++)
             {
                 if (p[k] == s[i])
                 {
@@ -76,47 +78,18 @@ int squeeze(char s[], char p[])
                 str[j++] = s[i];
             else
                 found = 0;
+
+            printf("\n%s", str);
         }
 
         strcpy(s, str);
     }
-    else if (s == p)
-    {
-        clear(s);
-    }
     else
-        /* Unsuccessful */
-        return 0;
-
-    return 1;
+        clear(s);
 }
-
 
 int main(void)
 {
-    int result;
-    int len1, len2;
-    char str1[MAX_SIZE], str2[MAX_SIZE];
-    
-    while ((len1 = getln("Enter initial string: ", str1, MAX_SIZE)) > 0)
-    {
-        len2 = getln("Enter filter string: ", str2, MAX_SIZE);
-        result = squeeze(str1, str2);
-
-        if (result)
-        {
-            printf("Result: ");
-            printstr(str1);
-        }
-        else
-            printstr("Try again...");
-        /* 
-         * Clear both string,
-         * Note to self: Nice mess..
-         */
-        clear(str1);
-        clear(str2);
-    }
 
     return 0;
 }
